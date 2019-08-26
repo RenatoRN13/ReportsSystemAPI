@@ -1,7 +1,7 @@
-# ReportsSystemAPI
+# Reports System API
 System API to manager reports to postgraduate courses at Universidade Federal do Rio Grande do Norte
 
-Roles/profiles
+# Roles/profiles
 
 Administrator
 Coordinator
@@ -9,7 +9,7 @@ Project Director (Partner Institution)
 Resident
 
 
-System Features
+# System Features
 
 To manage profiles
 To manage users

@@ -1,9 +1,12 @@
+using System;
+
 namespace Domain.Entities {
     public class Atividade {
         public int id { get; set; }
-        public int descricao { get; set; }
-        public int dataInicio { get; set; }
-        public int dataFim { get; set; }
+        public string descricao { get; set; }
+        public DateTime dataAtividade { get; set; }
+        public DateTime dataCadastro { get; set; }
         public int idUsuario { get; set; }
+        public int idRelatorio { get; set; }
     }
 }

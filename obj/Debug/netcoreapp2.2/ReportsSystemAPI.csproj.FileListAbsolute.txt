@@ -1,0 +1,14 @@
+C:\Users\10621422410\Novo Projeto\ReportsSystemAPI\bin\Debug\netcoreapp2.2\ReportsSystemAPI.deps.json
+C:\Users\10621422410\Novo Projeto\ReportsSystemAPI\bin\Debug\netcoreapp2.2\ReportsSystemAPI.runtimeconfig.json
+C:\Users\10621422410\Novo Projeto\ReportsSystemAPI\bin\Debug\netcoreapp2.2\ReportsSystemAPI.runtimeconfig.dev.json
+c:\Users\10621422410\Novo Projeto\ReportsSystemAPI\bin\Debug\netcoreapp2.2\ReportsSystemAPI.dll
+c:\Users\10621422410\Novo Projeto\ReportsSystemAPI\bin\Debug\netcoreapp2.2\ReportsSystemAPI.pdb
+c:\Users\10621422410\Novo Projeto\ReportsSystemAPI\obj\Debug\netcoreapp2.2\ReportsSystemAPI.csprojAssemblyReference.cache
+c:\Users\10621422410\Novo Projeto\ReportsSystemAPI\obj\Debug\netcoreapp2.2\ReportsSystemAPI.csproj.CoreCompileInputs.cache
+c:\Users\10621422410\Novo Projeto\ReportsSystemAPI\obj\Debug\netcoreapp2.2\ReportsSystemAPI.RazorAssemblyInfo.cache
+c:\Users\10621422410\Novo Projeto\ReportsSystemAPI\obj\Debug\netcoreapp2.2\ReportsSystemAPI.RazorAssemblyInfo.cs
+c:\Users\10621422410\Novo Projeto\ReportsSystemAPI\obj\Debug\netcoreapp2.2\ReportsSystemAPI.AssemblyInfoInputs.cache
+c:\Users\10621422410\Novo Projeto\ReportsSystemAPI\obj\Debug\netcoreapp2.2\ReportsSystemAPI.AssemblyInfo.cs
+c:\Users\10621422410\Novo Projeto\ReportsSystemAPI\obj\Debug\netcoreapp2.2\ReportsSystemAPI.RazorTargetAssemblyInfo.cache
+c:\Users\10621422410\Novo Projeto\ReportsSystemAPI\obj\Debug\netcoreapp2.2\ReportsSystemAPI.dll
+c:\Users\10621422410\Novo Projeto\ReportsSystemAPI\obj\Debug\netcoreapp2.2\ReportsSystemAPI.pdb

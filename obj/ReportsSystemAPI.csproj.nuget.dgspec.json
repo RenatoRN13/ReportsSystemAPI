@@ -59,6 +59,10 @@
               "version": "[2.2.0, )",
               "autoReferenced": true
             },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.0.0-rc2, )"

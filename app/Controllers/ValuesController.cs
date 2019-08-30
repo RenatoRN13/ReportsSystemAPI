@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ReportsSystemAPI.Controllers
-{
+namespace app.Controllers {
+
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase

@@ -1,5 +1,5 @@
-namespace Domain.Entities {
-    public class Log {
+namespace app.Domain.DTOs {
+    public class LogDTO {
         public int id { get; set; }
         public int idUsuario { get; set; }
         public string nomeUsuario { get; set; }

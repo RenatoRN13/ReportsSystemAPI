@@ -14,6 +14,8 @@ using Microsoft.Extensions.Options;
 using Microsoft. OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql;
+using AutoMapper;
+using Application.AutoMapper;
 
 namespace ReportsSystemAPI
 {
@@ -35,6 +37,12 @@ namespace ReportsSystemAPI
                         Configuration.GetConnectionString("ReportsSystemDB")
                     )
             );
+
+            // Auto Mapper Configurations
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new DataMappingProfile());
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

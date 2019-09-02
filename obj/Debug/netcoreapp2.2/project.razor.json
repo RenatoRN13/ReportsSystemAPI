@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
+  "FilePath": "c:\\Users\\10621422410\\IMD\\ReportsSystemAPI\\ReportsSystemAPI.csproj",
+=======
   "FilePath": "c:\\Users\\09001597408\\dev\\ReportsSystemAPI\\ReportsSystemAPI.csproj",
+>>>>>>> d4c36c85f2ed037d8c395a83ff907d71e4d1a7b0
   "Configuration": {
     "ConfigurationName": "MVC-2.1",
     "LanguageVersion": "2.1",

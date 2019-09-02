@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ReportsSystemApi.Domain.Entities;
 
-namespace ReportsSystemAPI.Infra {
+namespace ReportsSystemApi.Infra {
     public class RSApiContext : DbContext{
         public RSApiContext(DbContextOptions<RSApiContext> options) : base(options)
         {

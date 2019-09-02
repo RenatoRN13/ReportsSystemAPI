@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using ReportsSystemAPI.Infra;
+using ReportsSystemApi.Domain;
+using ReportsSystemApi.Infra;
 
 namespace ReportsSystemAPI
 {
@@ -34,6 +30,37 @@ namespace ReportsSystemAPI
                     opt => opt.UseNpgsql(
                         Configuration.GetConnectionString("conexaoPostgreSQL")
                     ));
+
+            var signingConfig = new SigningConfig();
+            services.AddSingleton(signingConfig);
+
+            var tokenConfig = new TokenConfig();
+            new ConfigureFromConfigurationOptions<TokenConfig>(Configuration.GetSection("TokenConfigs")).Configure(tokenConfig);
+            services.AddSingleton(tokenConfig);
+            
+            services.AddAuthentication (authOptions => {
+                authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                authOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer (bearerOptions => {
+                var paramsValidation = bearerOptions.TokenValidationParameters;
+                paramsValidation.IssuerSigningKey = signingConfig.key;
+                paramsValidation.ValidAudience = tokenConfig.audience;
+                paramsValidation.ValidIssuer = tokenConfig.issuer;
+
+            // Validade a assinatura do token
+            paramsValidation.ValidateIssuerSigningKey = true;
+            // Verifica validade do token
+            paramsValidation.ValidateLifetime = true;
+
+            services.AddAuthorization (auth => {
+                auth.AddPolicy (
+                    "Bearer", new Microsoft.AspNetCore.Authorization.AuthorizationPolicyBuilder ()
+                    .AddAuthenticationSchemes (JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser ().Build ()
+                );
+            });
+
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

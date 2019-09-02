@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReportsSystemApi.Domain.Entities;
-using ReportsSystemAPI.Infra;
+using ReportsSystemApi.Infra;
 
-namespace ReportsSystemAPI.Controllers
+namespace ReportsSystemApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -18,7 +18,7 @@ namespace ReportsSystemAPI.Controllers
         public PerfilController(RSApiContext context){
             _context = context;
         }
-
+        
         // GET api/Perfil
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Perfil>>> GetItems()

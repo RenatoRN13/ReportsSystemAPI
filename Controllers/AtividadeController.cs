@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReportsSystemApi.Domain.Entities;
-using ReportsSystemAPI.Infra;
+using ReportsSystemApi.Infra;
 
-namespace ReportsSystemAPI.Controllers
+namespace ReportsSystemApi.Controllers
 {
+    [Authorize(Roles = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class AtividadeController : ControllerBase
@@ -25,7 +27,7 @@ namespace ReportsSystemAPI.Controllers
         {
             return await _context.Atividades.ToListAsync();
         }
-
+        [AllowAnonymous]
         // GET api/Atividade/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Atividade>> GetItem(int id)

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\10621422410\\Novo Projeto\\ReportsSystemAPI\\ReportsSystemAPI.csproj": {}
+    "C:\\Users\\09001597408\\dev\\ReportsSystemAPI\\ReportsSystemAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\10621422410\\Novo Projeto\\ReportsSystemAPI\\ReportsSystemAPI.csproj": {
+    "C:\\Users\\09001597408\\dev\\ReportsSystemAPI\\ReportsSystemAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\10621422410\\Novo Projeto\\ReportsSystemAPI\\ReportsSystemAPI.csproj",
+        "projectUniqueName": "C:\\Users\\09001597408\\dev\\ReportsSystemAPI\\ReportsSystemAPI.csproj",
         "projectName": "ReportsSystemAPI",
-        "projectPath": "C:\\Users\\10621422410\\Novo Projeto\\ReportsSystemAPI\\ReportsSystemAPI.csproj",
-        "packagesPath": "C:\\Users\\10621422410\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\10621422410\\Novo Projeto\\ReportsSystemAPI\\obj\\",
+        "projectPath": "C:\\Users\\09001597408\\dev\\ReportsSystemAPI\\ReportsSystemAPI.csproj",
+        "packagesPath": "C:\\Users\\09001597408\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\09001597408\\dev\\ReportsSystemAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\10621422410\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\09001597408\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,7 +25,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "http://tcenugetdev.tce.govrn/nuget": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -58,6 +57,10 @@
               "target": "Package",
               "version": "[2.2.0, )",
               "autoReferenced": true
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[2.2.4, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

@@ -39,8 +39,8 @@ namespace ReportsSystemAPI
 
             services.AddSwaggerGen(c =>
             {
-                // c.SwaggerDoc("v1", new OpenApiInfo { Title = "Reports System - IMD/UFRN", Version = "v1" });
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Reports System - IMD/UFRN", Version = "v1" });
+                // c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
 
         }
@@ -53,7 +53,7 @@ namespace ReportsSystemAPI
             // app.UseCors("AllowAnyOrigin");
 
             app.UseCors(
-                options => options.WithOrigins("http://localhost:4200").AllowAnyMethod()
+                options => options.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader()
             );
 
             if (env.IsDevelopment())

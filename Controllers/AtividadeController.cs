@@ -10,6 +10,7 @@ using ReportsSystemApi.Infra;
 
 namespace ReportsSystemApi.Controllers
 {
+    [Authorize(Roles = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class AtividadeController : ControllerBase

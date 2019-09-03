@@ -66,11 +66,12 @@ namespace ReportsSystemApi.Controllers
                 });
 
                 var token = handler.WriteToken(securityToken);
-
+                var usuarioBase = _context.Usuarios.Where(u => u.login == usuario.login).First();
+                
                 return new
                 {
                     authenticated = true,
-                    user = usuario,
+                    user = usuarioBase,
                     created = dataCriacao.ToString("yyyy-MM-dd HH:mm:ss"),
                     expiration = dataExpiracao.ToString("yyyy-MM-dd HH:mm:ss"),
                     accessToken = token,

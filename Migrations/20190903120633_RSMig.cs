@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ReportsSystemAPI.Migrations
 {
-    public partial class RSMigration : Migration
+    public partial class RSMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

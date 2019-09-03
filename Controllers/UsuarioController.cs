@@ -45,8 +45,7 @@ namespace ReportsSystemApi.Controllers
         {
             try{
                 _context.Usuarios.Add(usuario);
-                await _context.SaveChangesAsync();
-
+                //await _context.SaveChangesAsync();
                 foreach (Perfil perfil in usuario.perfis){
                     UsuarioPerfil up = new UsuarioPerfil();
                     up.usuario = usuario;

@@ -10,15 +10,15 @@ using ReportsSystemApi.Infra;
 namespace ReportsSystemAPI.Migrations
 {
     [DbContext(typeof(RSApiContext))]
-    [Migration("20190903014446_RSMigration")]
-    partial class RSMigration
+    [Migration("20190903120633_RSMig")]
+    partial class RSMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("ReportsSystemApi.Domain.Entities.Atividade", b =>

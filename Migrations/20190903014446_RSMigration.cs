@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ReportsSystemAPI.Migrations
 {
-    public partial class RSMig : Migration
+    public partial class RSMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,8 +15,8 @@ namespace ReportsSystemAPI.Migrations
                     id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     descricao = table.Column<string>(nullable: true),
-                    dataAtividade = table.Column<DateTime>(nullable: false),
-                    dataCadastro = table.Column<DateTime>(nullable: false)
+                    dataInicio = table.Column<DateTime>(nullable: false),
+                    dataFim = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -78,14 +78,34 @@ namespace ReportsSystemAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Logs",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    acao = table.Column<string>(nullable: true),
+                    data = table.Column<DateTime>(nullable: false),
+                    usuarioid = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Logs", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Logs_Usuarios_usuarioid",
+                        column: x => x.usuarioid,
+                        principalTable: "Usuarios",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Relatorios",
                 columns: table => new
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    descricao = table.Column<string>(nullable: true),
-                    dataInicio = table.Column<DateTime>(nullable: false),
-                    dataFim = table.Column<DateTime>(nullable: false),
+                    nota = table.Column<int>(nullable: false),
+                    dataEnvio = table.Column<DateTime>(nullable: false),
                     usuarioid = table.Column<int>(nullable: true),
                     atividadeid = table.Column<int>(nullable: true)
                 },
@@ -164,6 +184,11 @@ namespace ReportsSystemAPI.Migrations
                 column: "atividadeid");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Logs_usuarioid",
+                table: "Logs",
+                column: "usuarioid");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Relatorios_atividadeid",
                 table: "Relatorios",
                 column: "atividadeid");
@@ -193,6 +218,9 @@ namespace ReportsSystemAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AtividadeUsuarios");
+
+            migrationBuilder.DropTable(
+                name: "Logs");
 
             migrationBuilder.DropTable(
                 name: "Relatorios");

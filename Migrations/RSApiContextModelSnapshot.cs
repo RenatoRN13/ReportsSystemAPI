@@ -24,9 +24,9 @@ namespace ReportsSystemAPI.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("dataAtividade");
+                    b.Property<DateTime>("dataFim");
 
-                    b.Property<DateTime>("dataCadastro");
+                    b.Property<DateTime>("dataInicio");
 
                     b.Property<string>("descricao");
 
@@ -53,6 +53,24 @@ namespace ReportsSystemAPI.Migrations
                     b.ToTable("AtividadeUsuarios");
                 });
 
+            modelBuilder.Entity("ReportsSystemApi.Domain.Entities.Log", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("acao");
+
+                    b.Property<DateTime>("data");
+
+                    b.Property<int?>("usuarioid");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("usuarioid");
+
+                    b.ToTable("Logs");
+                });
+
             modelBuilder.Entity("ReportsSystemApi.Domain.Entities.Perfil", b =>
                 {
                     b.Property<int>("id")
@@ -72,11 +90,9 @@ namespace ReportsSystemAPI.Migrations
 
                     b.Property<int?>("atividadeid");
 
-                    b.Property<DateTime>("dataFim");
+                    b.Property<DateTime>("dataEnvio");
 
-                    b.Property<DateTime>("dataInicio");
-
-                    b.Property<string>("descricao");
+                    b.Property<int>("nota");
 
                     b.Property<int?>("usuarioid");
 
@@ -150,6 +166,13 @@ namespace ReportsSystemAPI.Migrations
                     b.HasOne("ReportsSystemApi.Domain.Entities.Atividade", "atividade")
                         .WithMany()
                         .HasForeignKey("atividadeid");
+                });
+
+            modelBuilder.Entity("ReportsSystemApi.Domain.Entities.Log", b =>
+                {
+                    b.HasOne("ReportsSystemApi.Domain.Entities.Usuario", "usuario")
+                        .WithMany()
+                        .HasForeignKey("usuarioid");
                 });
 
             modelBuilder.Entity("ReportsSystemApi.Domain.Entities.Relatorio", b =>

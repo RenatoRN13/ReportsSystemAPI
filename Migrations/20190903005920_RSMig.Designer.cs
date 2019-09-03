@@ -10,8 +10,8 @@ using ReportsSystemApi.Infra;
 namespace ReportsSystemAPI.Migrations
 {
     [DbContext(typeof(RSApiContext))]
-    [Migration("20190901070427_RSMigration")]
-    partial class RSMigration
+    [Migration("20190903005920_RSMig")]
+    partial class RSMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -122,7 +122,7 @@ namespace ReportsSystemAPI.Migrations
 
                     b.HasIndex("usuarioid");
 
-                    b.ToTable("UsuarioPerfils");
+                    b.ToTable("UsuarioPerfis");
                 });
 
             modelBuilder.Entity("ReportsSystemApi.Domain.Entities.Vinculo", b =>

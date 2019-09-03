@@ -6,6 +6,7 @@ namespace ReportsSystemApi.Domain.Entities {
         public string descricao { get; set; }
         public DateTime dataInicio { get; set; }
         public DateTime dataFim { get; set; }
+        public int idUsuario { get; set; }
         
     }
 }

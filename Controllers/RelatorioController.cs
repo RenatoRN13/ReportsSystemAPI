@@ -33,7 +33,7 @@ namespace ReportsSystemApi.Controllers
             var item = await _context.Relatorios.FindAsync(id);
 
             if(item == null){
-                return NotFound();
+                return NotFound("Relatório não encontrado.");
             }
 
             return item;
@@ -43,40 +43,48 @@ namespace ReportsSystemApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Relatorio>> Post(Relatorio relatorio)
         {
+            Usuario usuario = await _context.Usuarios.FindAsync(relatorio.idUsuario);
+            if(usuario == null)
+                return BadRequest("Não foi possível enviar relatório. É necessário informar um usuário");
+
+            Atividade atividade = await _context.Atividades.FindAsync(relatorio.idAtividade);
+            if(atividade == null)
+                return BadRequest("Não foi possível enviar relatório. É necessário informar de qual atividade ele é exigido");
+
             _context.Relatorios.Add(relatorio);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetItem), new Relatorio {id = relatorio.id}, relatorio);
+            return Ok("Relatório enviado com sucesso!");
         }
 
-        // PUT api/Relatorio/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, Relatorio relatorio)
-        {
-            if(id != relatorio.id){
-                return BadRequest();
-            }
+        // // PUT api/Relatorio/5
+        // [HttpPut("{id}")]
+        // public async Task<IActionResult> Put(int id, Relatorio relatorio)
+        // {
+        //     if(id != relatorio.id){
+        //         return BadRequest();
+        //     }
 
-            _context.Entry(relatorio).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+        //     _context.Entry(relatorio).State = EntityState.Modified;
+        //     await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
+        //     return NoContent();
+        // }
 
-        // DELETE api/Relatorio/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var relatorio = await _context.Relatorios.FindAsync(id);
+        // // DELETE api/Relatorio/5
+        // [HttpDelete("{id}")]
+        // public async Task<IActionResult> Delete(int id)
+        // {
+        //     var relatorio = await _context.Relatorios.FindAsync(id);
 
-            if(relatorio == null){
-                return NotFound();
-            }
+        //     if(relatorio == null){
+        //         return NotFound();
+        //     }
 
-            _context.Relatorios.Remove(relatorio);
-            await _context.SaveChangesAsync();
+        //     _context.Relatorios.Remove(relatorio);
+        //     await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
+        //     return NoContent();
+        // }
     }
 }

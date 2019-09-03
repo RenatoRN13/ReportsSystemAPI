@@ -35,7 +35,7 @@ namespace ReportsSystemApi.Controllers
             var item = await _context.Atividades.FindAsync(id);
 
             if(item == null){
-                return NotFound();
+                return NotFound("Atividade não encontrada");
             }
 
             return item;
@@ -45,10 +45,16 @@ namespace ReportsSystemApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Atividade>> Post(Atividade atividade)
         {
+            if(atividade.descricao == null)
+                return BadRequest("É necessário inserir uma descrição para a atividade.");
+
+            if(atividade.dataInicio == null || atividade.dataFim == null)
+                return BadRequest("É necessario inserir data de início e fim para a atividade.");
+
             _context.Atividades.Add(atividade);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetItem), new Atividade {id = atividade.id}, atividade);
+            
+            return Ok("Atividade cadastrada com sucesso!");
         }
 
         // PUT api/Atividade/5
@@ -58,11 +64,16 @@ namespace ReportsSystemApi.Controllers
             if(id != atividade.id){
                 return BadRequest();
             }
+            if(atividade.descricao == null)
+                return BadRequest("É necessário inserir uma descrição para a atividade.");
+
+            if(atividade.dataInicio == null || atividade.dataFim == null)
+                return BadRequest("É necessario inserir data de início e fim para a atividade.");
 
             _context.Entry(atividade).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok("Atividade atualizada com sucesso!");
         }
 
         // DELETE api/Atividade/5
@@ -78,7 +89,7 @@ namespace ReportsSystemApi.Controllers
             _context.Atividades.Remove(atividade);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok("Atividade removida com sucesso!");
         }
     }
 }

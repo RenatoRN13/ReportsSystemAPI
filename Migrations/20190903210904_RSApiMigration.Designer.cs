@@ -10,8 +10,8 @@ using ReportsSystemApi.Infra;
 namespace ReportsSystemAPI.Migrations
 {
     [DbContext(typeof(RSApiContext))]
-    [Migration("20190903173506_RSMig")]
-    partial class RSMig
+    [Migration("20190903210904_RSApiMigration")]
+    partial class RSApiMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,6 +32,8 @@ namespace ReportsSystemAPI.Migrations
 
                     b.Property<string>("descricao");
 
+                    b.Property<int>("idUsuario");
+
                     b.HasKey("id");
 
                     b.ToTable("Atividades");
@@ -42,15 +44,11 @@ namespace ReportsSystemAPI.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("atividadeid");
+                    b.Property<int>("idAtividade");
 
-                    b.Property<int?>("usuarioid");
+                    b.Property<int>("idUsuario");
 
                     b.HasKey("id");
-
-                    b.HasIndex("atividadeid");
-
-                    b.HasIndex("usuarioid");
 
                     b.ToTable("AtividadeUsuarios");
                 });
@@ -90,19 +88,15 @@ namespace ReportsSystemAPI.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("atividadeid");
-
                     b.Property<DateTime>("dataEnvio");
+
+                    b.Property<int>("idAtividade");
+
+                    b.Property<int>("idUsuario");
 
                     b.Property<int>("nota");
 
-                    b.Property<int?>("usuarioid");
-
                     b.HasKey("id");
-
-                    b.HasIndex("atividadeid");
-
-                    b.HasIndex("usuarioid");
 
                     b.ToTable("Relatorios");
                 });
@@ -112,48 +106,17 @@ namespace ReportsSystemAPI.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("idPerfil");
+
                     b.Property<string>("login");
 
                     b.Property<string>("nome");
-
-                    b.Property<int?>("perfilid");
 
                     b.Property<string>("senha");
 
                     b.HasKey("id");
 
-                    b.HasIndex("perfilid");
-
                     b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("ReportsSystemApi.Domain.Entities.AtividadeUsuario", b =>
-                {
-                    b.HasOne("ReportsSystemApi.Domain.Entities.Atividade", "atividade")
-                        .WithMany()
-                        .HasForeignKey("atividadeid");
-
-                    b.HasOne("ReportsSystemApi.Domain.Entities.Usuario", "usuario")
-                        .WithMany()
-                        .HasForeignKey("usuarioid");
-                });
-
-            modelBuilder.Entity("ReportsSystemApi.Domain.Entities.Relatorio", b =>
-                {
-                    b.HasOne("ReportsSystemApi.Domain.Entities.Atividade", "atividade")
-                        .WithMany()
-                        .HasForeignKey("atividadeid");
-
-                    b.HasOne("ReportsSystemApi.Domain.Entities.Usuario", "usuario")
-                        .WithMany()
-                        .HasForeignKey("usuarioid");
-                });
-
-            modelBuilder.Entity("ReportsSystemApi.Domain.Entities.Usuario", b =>
-                {
-                    b.HasOne("ReportsSystemApi.Domain.Entities.Perfil", "perfil")
-                        .WithMany()
-                        .HasForeignKey("perfilid");
                 });
 #pragma warning restore 612, 618
         }

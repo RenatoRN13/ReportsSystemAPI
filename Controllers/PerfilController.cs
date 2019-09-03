@@ -33,7 +33,7 @@ namespace ReportsSystemApi.Controllers
             var item = await _context.Perfis.FindAsync(id);
 
             if(item == null){
-                return NotFound();
+                return NotFound("Perfil não encontrado!");
             }
 
             return item;
@@ -43,10 +43,17 @@ namespace ReportsSystemApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Perfil>> Post(Perfil perfil)
         {
-            _context.Perfis.Add(perfil);
-            await _context.SaveChangesAsync();
+            try {
+                if(perfil.descricao == null || perfil.descricao == "")
+                    return BadRequest("É necessário informar a descrição do perfil.");
 
-            return CreatedAtAction(nameof(GetItem), new Perfil {id = perfil.id}, perfil);
+                _context.Perfis.Add(perfil);
+                await _context.SaveChangesAsync();
+                return Ok("Perfil cadastrado com sucesso!");
+            } catch (Exception e){
+                new Exception(e.Message);
+                return BadRequest("Erro ao cadastrar  perfil.");
+            }
         }
 
         // PUT api/Perfil/5
@@ -54,13 +61,15 @@ namespace ReportsSystemApi.Controllers
         public async Task<IActionResult> Put(int id, Perfil perfil)
         {
             if(id != perfil.id){
-                return BadRequest();
+                return BadRequest("Perfil não encontrado");
             }
+            if(perfil.descricao == null || perfil.descricao == "")
+                return BadRequest("É necessário informar a descrição do perfil.");
 
             _context.Entry(perfil).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok("Perfil atualizado com sucesso!");
         }
 
         // DELETE api/Perfil/5
@@ -70,13 +79,13 @@ namespace ReportsSystemApi.Controllers
             var perfil = await _context.Perfis.FindAsync(id);
 
             if(perfil == null){
-                return NotFound();
+                return NotFound("Perfil não encontrado!");
             }
 
             _context.Perfis.Remove(perfil);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok("Perfil deletado com sucesso!");
         }
     }
 }

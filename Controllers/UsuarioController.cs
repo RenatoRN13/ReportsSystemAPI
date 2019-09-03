@@ -43,27 +43,21 @@ namespace ReportsSystemApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> Post(Usuario usuario)
         {
-            Usuario userTemp = new Usuario();
-            userTemp.login = usuario.login;
-            userTemp.nome = usuario.nome;
-            userTemp.senha = usuario.senha;
-            
             try{
-                _context.Usuarios.Add(userTemp);
-                await _context.SaveChangesAsync();
+                Perfil perfil = await _context.Perfis.FindAsync(usuario.idPerfil);
 
-                if(usuario.perfil != null){
-                    userTemp.perfil = usuario.perfil;
-                    usuario.id = userTemp.id;
-                    Put(userTemp.id, usuario);
-                }   
+                if(perfil != null){
+                    _context.Usuarios.Add(usuario);
+                    await _context.SaveChangesAsync();
+
+                    return Ok("Usuário cadastrado com sucesso!");
+                }
                 
-
+                return Ok("Não foi possível cadastrar o usuário. É necesário informar seu perfil!");                
             } catch (Exception e){
                 new Exception(e.Message);
+                return Ok("Erro ao tentar cadastrar usuário.");
             }
-
-            return CreatedAtAction(nameof(GetItem), new Usuario {id = usuario.id}, usuario);
         }
 
         // PUT api/Usuario/5

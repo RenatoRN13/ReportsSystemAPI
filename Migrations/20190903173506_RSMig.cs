@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ReportsSystemAPI.Migrations
 {
-    public partial class RSmig : Migration
+    public partial class RSMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,6 +21,22 @@ namespace ReportsSystemAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Atividades", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Logs",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    acao = table.Column<string>(nullable: true),
+                    paginaAcessada = table.Column<string>(nullable: true),
+                    data = table.Column<DateTime>(nullable: false),
+                    idUsuario = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Logs", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,28 +101,6 @@ namespace ReportsSystemAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Logs",
-                columns: table => new
-                {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    acao = table.Column<string>(nullable: true),
-                    paginaAcessada = table.Column<string>(nullable: true),
-                    data = table.Column<DateTime>(nullable: false),
-                    usuarioid = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Logs", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_Logs_Usuarios_usuarioid",
-                        column: x => x.usuarioid,
-                        principalTable: "Usuarios",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Relatorios",
                 columns: table => new
                 {
@@ -142,11 +136,6 @@ namespace ReportsSystemAPI.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_AtividadeUsuarios_usuarioid",
                 table: "AtividadeUsuarios",
-                column: "usuarioid");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Logs_usuarioid",
-                table: "Logs",
                 column: "usuarioid");
 
             migrationBuilder.CreateIndex(

@@ -10,15 +10,15 @@ using ReportsSystemApi.Infra;
 namespace ReportsSystemAPI.Migrations
 {
     [DbContext(typeof(RSApiContext))]
-    [Migration("20190903145442_RSmig")]
-    partial class RSmig
+    [Migration("20190903173506_RSMig")]
+    partial class RSMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("ReportsSystemApi.Domain.Entities.Atividade", b =>
@@ -64,13 +64,11 @@ namespace ReportsSystemAPI.Migrations
 
                     b.Property<DateTime>("data");
 
+                    b.Property<int>("idUsuario");
+
                     b.Property<string>("paginaAcessada");
 
-                    b.Property<int?>("usuarioid");
-
                     b.HasKey("id");
-
-                    b.HasIndex("usuarioid");
 
                     b.ToTable("Logs");
                 });
@@ -135,13 +133,6 @@ namespace ReportsSystemAPI.Migrations
                         .WithMany()
                         .HasForeignKey("atividadeid");
 
-                    b.HasOne("ReportsSystemApi.Domain.Entities.Usuario", "usuario")
-                        .WithMany()
-                        .HasForeignKey("usuarioid");
-                });
-
-            modelBuilder.Entity("ReportsSystemApi.Domain.Entities.Log", b =>
-                {
                     b.HasOne("ReportsSystemApi.Domain.Entities.Usuario", "usuario")
                         .WithMany()
                         .HasForeignKey("usuarioid");

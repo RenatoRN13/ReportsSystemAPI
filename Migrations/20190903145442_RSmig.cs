@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ReportsSystemAPI.Migrations
 {
-    public partial class RSMig : Migration
+    public partial class RSmig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,11 +44,18 @@ namespace ReportsSystemAPI.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     nome = table.Column<string>(nullable: true),
                     login = table.Column<string>(nullable: true),
-                    senha = table.Column<string>(nullable: true)
+                    senha = table.Column<string>(nullable: true),
+                    perfilid = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_Perfis_perfilid",
+                        column: x => x.perfilid,
+                        principalTable: "Perfis",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,21 +65,21 @@ namespace ReportsSystemAPI.Migrations
                     id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     atividadeid = table.Column<int>(nullable: true),
-                    Usuarioid = table.Column<int>(nullable: true)
+                    usuarioid = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AtividadeUsuarios", x => x.id);
                     table.ForeignKey(
-                        name: "FK_AtividadeUsuarios_Usuarios_Usuarioid",
-                        column: x => x.Usuarioid,
-                        principalTable: "Usuarios",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_AtividadeUsuarios_Atividades_atividadeid",
                         column: x => x.atividadeid,
                         principalTable: "Atividades",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AtividadeUsuarios_Usuarios_usuarioid",
+                        column: x => x.usuarioid,
+                        principalTable: "Usuarios",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -84,6 +91,7 @@ namespace ReportsSystemAPI.Migrations
                     id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     acao = table.Column<string>(nullable: true),
+                    paginaAcessada = table.Column<string>(nullable: true),
                     data = table.Column<DateTime>(nullable: false),
                     usuarioid = table.Column<int>(nullable: true)
                 },
@@ -126,62 +134,15 @@ namespace ReportsSystemAPI.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "UsuarioPerfis",
-                columns: table => new
-                {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    usuarioid = table.Column<int>(nullable: true),
-                    perfilid = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UsuarioPerfis", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_UsuarioPerfis_Perfis_perfilid",
-                        column: x => x.perfilid,
-                        principalTable: "Perfis",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_UsuarioPerfis_Usuarios_usuarioid",
-                        column: x => x.usuarioid,
-                        principalTable: "Usuarios",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Vinculos",
-                columns: table => new
-                {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    IES = table.Column<int>(nullable: false),
-                    orgao = table.Column<int>(nullable: false),
-                    usuarioid = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Vinculos", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_Vinculos_Usuarios_usuarioid",
-                        column: x => x.usuarioid,
-                        principalTable: "Usuarios",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AtividadeUsuarios_Usuarioid",
-                table: "AtividadeUsuarios",
-                column: "Usuarioid");
-
             migrationBuilder.CreateIndex(
                 name: "IX_AtividadeUsuarios_atividadeid",
                 table: "AtividadeUsuarios",
                 column: "atividadeid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AtividadeUsuarios_usuarioid",
+                table: "AtividadeUsuarios",
+                column: "usuarioid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Logs_usuarioid",
@@ -199,19 +160,9 @@ namespace ReportsSystemAPI.Migrations
                 column: "usuarioid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UsuarioPerfis_perfilid",
-                table: "UsuarioPerfis",
+                name: "IX_Usuarios_perfilid",
+                table: "Usuarios",
                 column: "perfilid");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UsuarioPerfis_usuarioid",
-                table: "UsuarioPerfis",
-                column: "usuarioid");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Vinculos_usuarioid",
-                table: "Vinculos",
-                column: "usuarioid");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -226,19 +177,13 @@ namespace ReportsSystemAPI.Migrations
                 name: "Relatorios");
 
             migrationBuilder.DropTable(
-                name: "UsuarioPerfis");
-
-            migrationBuilder.DropTable(
-                name: "Vinculos");
-
-            migrationBuilder.DropTable(
                 name: "Atividades");
 
             migrationBuilder.DropTable(
-                name: "Perfis");
+                name: "Usuarios");
 
             migrationBuilder.DropTable(
-                name: "Usuarios");
+                name: "Perfis");
         }
     }
 }

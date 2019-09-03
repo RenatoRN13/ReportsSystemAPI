@@ -1,31 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\10621422410\\IMD\\ReportsSystemAPI\\ReportsSystemAPI.csproj": {}
+    "C:\\Users\\Renato\\dev\\ReportsSystemAPI\\ReportsSystemAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\10621422410\\IMD\\ReportsSystemAPI\\ReportsSystemAPI.csproj": {
+    "C:\\Users\\Renato\\dev\\ReportsSystemAPI\\ReportsSystemAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\10621422410\\IMD\\ReportsSystemAPI\\ReportsSystemAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Renato\\dev\\ReportsSystemAPI\\ReportsSystemAPI.csproj",
         "projectName": "ReportsSystemAPI",
-        "projectPath": "C:\\Users\\10621422410\\IMD\\ReportsSystemAPI\\ReportsSystemAPI.csproj",
-        "packagesPath": "C:\\Users\\10621422410\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\10621422410\\IMD\\ReportsSystemAPI\\obj\\",
+        "projectPath": "C:\\Users\\Renato\\dev\\ReportsSystemAPI\\ReportsSystemAPI.csproj",
+        "packagesPath": "C:\\Users\\Renato\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Renato\\dev\\ReportsSystemAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\10621422410\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Renato\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "http://tcenugetdev.tce.govrn/nuget": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

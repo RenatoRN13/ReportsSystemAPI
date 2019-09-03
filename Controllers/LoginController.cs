@@ -65,12 +65,14 @@ namespace ReportsSystemApi.Controllers
                     Expires = dataExpiracao
                 });
 
+                var usuarioBase = _context.Usuarios.Where(u => u.login == usuario.login).First();
+
                 var token = handler.WriteToken(securityToken);
 
                 return new
                 {
                     authenticated = true,
-                    user = usuario,
+                    user = new NewClass(usuarioBase.nome, usuarioBase.login, usuarioBase.id),
                     created = dataCriacao.ToString("yyyy-MM-dd HH:mm:ss"),
                     expiration = dataExpiracao.ToString("yyyy-MM-dd HH:mm:ss"),
                     accessToken = token,
@@ -85,5 +87,32 @@ namespace ReportsSystemApi.Controllers
             }
         }
 
+    }
+
+    internal class NewClass
+    {
+        public string Nome { get; }
+        public string Login { get; }
+        public int Id { get; }
+
+        public NewClass(string nome, string login, int id)
+        {
+            Nome = nome;
+            Login = login;
+            Id = id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is NewClass other &&
+                   Nome == other.Nome &&
+                   Login == other.Login &&
+                   Id == other.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Nome, Login, Id);
+        }
     }
 }

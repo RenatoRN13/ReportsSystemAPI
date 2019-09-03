@@ -30,8 +30,6 @@ namespace ReportsSystemAPI.Migrations
 
                     b.Property<string>("descricao");
 
-                    b.Property<int>("idUsuario");
-
                     b.HasKey("id");
 
                     b.ToTable("Atividades");
@@ -86,7 +84,11 @@ namespace ReportsSystemAPI.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("conteudo");
+
                     b.Property<DateTime>("dataEnvio");
+
+                    b.Property<string>("descricao");
 
                     b.Property<int>("idAtividade");
 

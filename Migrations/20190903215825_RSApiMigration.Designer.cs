@@ -10,7 +10,7 @@ using ReportsSystemApi.Infra;
 namespace ReportsSystemAPI.Migrations
 {
     [DbContext(typeof(RSApiContext))]
-    [Migration("20190903210904_RSApiMigration")]
+    [Migration("20190903215825_RSApiMigration")]
     partial class RSApiMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,8 +31,6 @@ namespace ReportsSystemAPI.Migrations
                     b.Property<DateTime>("dataInicio");
 
                     b.Property<string>("descricao");
-
-                    b.Property<int>("idUsuario");
 
                     b.HasKey("id");
 
@@ -88,7 +86,11 @@ namespace ReportsSystemAPI.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("conteudo");
+
                     b.Property<DateTime>("dataEnvio");
+
+                    b.Property<string>("descricao");
 
                     b.Property<int>("idAtividade");
 

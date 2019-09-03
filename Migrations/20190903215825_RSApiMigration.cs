@@ -16,8 +16,7 @@ namespace ReportsSystemAPI.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     descricao = table.Column<string>(nullable: true),
                     dataInicio = table.Column<DateTime>(nullable: false),
-                    dataFim = table.Column<DateTime>(nullable: false),
-                    idUsuario = table.Column<int>(nullable: false)
+                    dataFim = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,6 +73,8 @@ namespace ReportsSystemAPI.Migrations
                     id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     nota = table.Column<int>(nullable: false),
+                    descricao = table.Column<string>(nullable: true),
+                    conteudo = table.Column<string>(nullable: true),
                     dataEnvio = table.Column<DateTime>(nullable: false),
                     idUsuario = table.Column<int>(nullable: false),
                     idAtividade = table.Column<int>(nullable: false)

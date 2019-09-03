@@ -43,9 +43,21 @@ namespace ReportsSystemApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> Post(Usuario usuario)
         {
+            Usuario userTemp = new Usuario();
+            userTemp.login = usuario.login;
+            userTemp.nome = usuario.nome;
+            userTemp.senha = usuario.senha;
+            
             try{
-                _context.Usuarios.Add(usuario);
+                _context.Usuarios.Add(userTemp);
                 await _context.SaveChangesAsync();
+
+                if(usuario.perfil != null){
+                    userTemp.perfil = usuario.perfil;
+                    usuario.id = userTemp.id;
+                    Put(userTemp.id, usuario);
+                }   
+                
 
             } catch (Exception e){
                 new Exception(e.Message);

@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReportsSystemApi.Domain.Entities;
-using ReportsSystemAPI.Infra;
+using ReportsSystemApi.Infra;
 
-namespace ReportsSystemAPI.Controllers
+namespace ReportsSystemApi.Controllers
 {
+    [Authorize(Roles = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class AtividadeController : ControllerBase
@@ -25,7 +27,7 @@ namespace ReportsSystemAPI.Controllers
         {
             return await _context.Atividades.ToListAsync();
         }
-
+        [AllowAnonymous]
         // GET api/Atividade/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Atividade>> GetItem(int id)
@@ -33,7 +35,7 @@ namespace ReportsSystemAPI.Controllers
             var item = await _context.Atividades.FindAsync(id);
 
             if(item == null){
-                return NotFound();
+                return NotFound("Atividade não encontrada");
             }
 
             return item;
@@ -43,10 +45,16 @@ namespace ReportsSystemAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Atividade>> Post(Atividade atividade)
         {
+            if(atividade.descricao == null)
+                return BadRequest("É necessário inserir uma descrição para a atividade.");
+
+            if(atividade.dataInicio == null || atividade.dataFim == null)
+                return BadRequest("É necessario inserir data de início e fim para a atividade.");
+
             _context.Atividades.Add(atividade);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetItem), new Atividade {id = atividade.id}, atividade);
+            
+            return Ok("Atividade cadastrada com sucesso!");
         }
 
         // PUT api/Atividade/5
@@ -56,11 +64,16 @@ namespace ReportsSystemAPI.Controllers
             if(id != atividade.id){
                 return BadRequest();
             }
+            if(atividade.descricao == null)
+                return BadRequest("É necessário inserir uma descrição para a atividade.");
+
+            if(atividade.dataInicio == null || atividade.dataFim == null)
+                return BadRequest("É necessario inserir data de início e fim para a atividade.");
 
             _context.Entry(atividade).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok("Atividade atualizada com sucesso!");
         }
 
         // DELETE api/Atividade/5
@@ -76,7 +89,7 @@ namespace ReportsSystemAPI.Controllers
             _context.Atividades.Remove(atividade);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok("Atividade removida com sucesso!");
         }
     }
 }

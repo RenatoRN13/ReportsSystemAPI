@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReportsSystemApi.Domain.Entities;
-using ReportsSystemAPI.Infra;
+using ReportsSystemApi.Infra;
 
-namespace ReportsSystemAPI.Controllers
+namespace ReportsSystemApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -23,7 +23,19 @@ namespace ReportsSystemAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetItems()
         {
-            return await _context.Usuarios.ToListAsync();
+            List<Usuario> usuarios = new List<Usuario>();
+
+            foreach(Usuario user in await _context.Usuarios.ToListAsync()){
+                Usuario usuarioTemp = new Usuario();
+                usuarioTemp.id = user.id;
+                usuarioTemp.login = user.login;
+                usuarioTemp.nome = user.nome;
+                usuarioTemp.idPerfil = user.idPerfil;
+
+                usuarios.Add(usuarioTemp);
+            }
+
+            return usuarios;
         }
 
         // GET api/Usuario/5
@@ -33,7 +45,7 @@ namespace ReportsSystemAPI.Controllers
             var item = await _context.Usuarios.FindAsync(id);
 
             if(item == null){
-                return NotFound();
+                return NotFound("Usuário não encontrado!");
             }
 
             return item;
@@ -43,10 +55,21 @@ namespace ReportsSystemAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> Post(Usuario usuario)
         {
-            _context.Usuarios.Add(usuario);
-            await _context.SaveChangesAsync();
+            try{
+                Perfil perfil = await _context.Perfis.FindAsync(usuario.idPerfil);
 
-            return CreatedAtAction(nameof(GetItem), new Usuario {id = usuario.id}, usuario);
+                if(perfil != null){
+                    _context.Usuarios.Add(usuario);
+                    await _context.SaveChangesAsync();
+
+                    return Ok("Usuário cadastrado com sucesso!");
+                }
+                
+                return Ok("Não foi possível cadastrar o usuário. É necesário informar um perfil válido!");                
+            } catch (Exception e){
+                new Exception(e.Message);
+                return Ok("Erro ao tentar cadastrar usuário.");
+            }
         }
 
         // PUT api/Usuario/5
@@ -57,10 +80,24 @@ namespace ReportsSystemAPI.Controllers
                 return BadRequest();
             }
 
+            Perfil perfil = await _context.Perfis.FindAsync(usuario.idPerfil);
+
+            if(perfil == null)
+                return BadRequest("Não foi possível atualizar o usuário. É necesário informar um perfil válido!");
+
+            if(usuario.senha == "" || usuario.senha == null)
+                return BadRequest("Não foi possível atualizar o usuário. É necesário informar uma senha válida!");
+
+            if(usuario.login == "" || usuario.login == null)
+                return BadRequest("Não foi possível atualizar o usuário. É necesário informar um login válido!");
+
+            if(usuario.nome == "" || usuario.nome == null)
+                return BadRequest("Não foi possível atualizar o usuário. É necesário informar o seu nome!");
+            
             _context.Entry(usuario).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok("Usuário atualizado com sucesso!");
         }
 
         // DELETE api/Usuario/5
@@ -70,13 +107,13 @@ namespace ReportsSystemAPI.Controllers
             var usuario = await _context.Usuarios.FindAsync(id);
 
             if(usuario == null){
-                return NotFound();
+                return BadRequest("Usuário não existe!");
             }
 
             _context.Usuarios.Remove(usuario);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok("Usuário removido com sucesso!");
         }
     }
 }

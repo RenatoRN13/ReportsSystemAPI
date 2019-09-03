@@ -72,7 +72,7 @@ namespace ReportsSystemApi.Controllers
                 return new
                 {
                     authenticated = true,
-                    user = new NewClass(usuarioBase.nome, usuarioBase.login, usuarioBase.id),
+                    user = new NewClass(usuarioBase.nome, usuarioBase.login, usuarioBase.id, usuarioBase.idPerfil),
                     created = dataCriacao.ToString("yyyy-MM-dd HH:mm:ss"),
                     expiration = dataExpiracao.ToString("yyyy-MM-dd HH:mm:ss"),
                     accessToken = token,
@@ -94,12 +94,14 @@ namespace ReportsSystemApi.Controllers
         public string Nome { get; }
         public string Login { get; }
         public int Id { get; }
+        public int IdPerfil { get; }
 
-        public NewClass(string nome, string login, int id)
+        public NewClass(string nome, string login, int id, int idPerfil)
         {
             Nome = nome;
             Login = login;
             Id = id;
+            IdPerfil = idPerfil;
         }
 
         public override bool Equals(object obj)
@@ -107,12 +109,13 @@ namespace ReportsSystemApi.Controllers
             return obj is NewClass other &&
                    Nome == other.Nome &&
                    Login == other.Login &&
-                   Id == other.Id;
+                   Id == other.Id &&
+                   IdPerfil == other.IdPerfil;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Nome, Login, Id);
+            return HashCode.Combine(Nome, Login, Id, IdPerfil);
         }
     }
 }

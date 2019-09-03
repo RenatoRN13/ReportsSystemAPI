@@ -70,7 +70,7 @@ namespace ReportsSystemAPI
             //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Reports System - IMD/UFRN", Version = "v1" });
             // });
             services.AddSwaggerGen(c =>{
-                c.SwaggerDoc("v1", new Info { Title = "Reports System - IMD/UFRN", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "Sistema de Relatórios - IMD/UFRN", Version = "v1" });
                     var security = new Dictionary<string, IEnumerable<string>>
                 {
                     {"Bearer", new string[] { }},

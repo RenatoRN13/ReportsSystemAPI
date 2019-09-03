@@ -120,7 +120,7 @@ namespace ReportsSystemAPI.Migrations
 
                     b.HasIndex("usuarioid");
 
-                    b.ToTable("UsuarioPerfils");
+                    b.ToTable("UsuarioPerfis");
                 });
 
             modelBuilder.Entity("ReportsSystemApi.Domain.Entities.Vinculo", b =>

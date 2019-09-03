@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ReportsSystemAPI.Migrations
 {
-    public partial class RSMigration : Migration
+    public partial class RSMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -107,7 +107,7 @@ namespace ReportsSystemAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UsuarioPerfils",
+                name: "UsuarioPerfis",
                 columns: table => new
                 {
                     id = table.Column<int>(nullable: false)
@@ -117,15 +117,15 @@ namespace ReportsSystemAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UsuarioPerfils", x => x.id);
+                    table.PrimaryKey("PK_UsuarioPerfis", x => x.id);
                     table.ForeignKey(
-                        name: "FK_UsuarioPerfils_Perfis_perfilid",
+                        name: "FK_UsuarioPerfis_Perfis_perfilid",
                         column: x => x.perfilid,
                         principalTable: "Perfis",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UsuarioPerfils_Usuarios_usuarioid",
+                        name: "FK_UsuarioPerfis_Usuarios_usuarioid",
                         column: x => x.usuarioid,
                         principalTable: "Usuarios",
                         principalColumn: "id",
@@ -174,13 +174,13 @@ namespace ReportsSystemAPI.Migrations
                 column: "usuarioid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UsuarioPerfils_perfilid",
-                table: "UsuarioPerfils",
+                name: "IX_UsuarioPerfis_perfilid",
+                table: "UsuarioPerfis",
                 column: "perfilid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UsuarioPerfils_usuarioid",
-                table: "UsuarioPerfils",
+                name: "IX_UsuarioPerfis_usuarioid",
+                table: "UsuarioPerfis",
                 column: "usuarioid");
 
             migrationBuilder.CreateIndex(
@@ -198,7 +198,7 @@ namespace ReportsSystemAPI.Migrations
                 name: "Relatorios");
 
             migrationBuilder.DropTable(
-                name: "UsuarioPerfils");
+                name: "UsuarioPerfis");
 
             migrationBuilder.DropTable(
                 name: "Vinculos");

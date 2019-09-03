@@ -10,8 +10,8 @@ using ReportsSystemApi.Infra;
 namespace ReportsSystemAPI.Migrations
 {
     [DbContext(typeof(RSApiContext))]
-    [Migration("20190903120633_RSMig")]
-    partial class RSMig
+    [Migration("20190903145442_RSmig")]
+    partial class RSmig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,15 +42,15 @@ namespace ReportsSystemAPI.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("Usuarioid");
-
                     b.Property<int?>("atividadeid");
+
+                    b.Property<int?>("usuarioid");
 
                     b.HasKey("id");
 
-                    b.HasIndex("Usuarioid");
-
                     b.HasIndex("atividadeid");
+
+                    b.HasIndex("usuarioid");
 
                     b.ToTable("AtividadeUsuarios");
                 });
@@ -63,6 +63,8 @@ namespace ReportsSystemAPI.Migrations
                     b.Property<string>("acao");
 
                     b.Property<DateTime>("data");
+
+                    b.Property<string>("paginaAcessada");
 
                     b.Property<int?>("usuarioid");
 
@@ -116,58 +118,26 @@ namespace ReportsSystemAPI.Migrations
 
                     b.Property<string>("nome");
 
-                    b.Property<string>("senha");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("ReportsSystemApi.Domain.Entities.UsuarioPerfil", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd();
-
                     b.Property<int?>("perfilid");
 
-                    b.Property<int?>("usuarioid");
+                    b.Property<string>("senha");
 
                     b.HasKey("id");
 
                     b.HasIndex("perfilid");
 
-                    b.HasIndex("usuarioid");
-
-                    b.ToTable("UsuarioPerfis");
-                });
-
-            modelBuilder.Entity("ReportsSystemApi.Domain.Entities.Vinculo", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("IES");
-
-                    b.Property<int>("orgao");
-
-                    b.Property<int?>("usuarioid");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("usuarioid");
-
-                    b.ToTable("Vinculos");
+                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("ReportsSystemApi.Domain.Entities.AtividadeUsuario", b =>
                 {
-                    b.HasOne("ReportsSystemApi.Domain.Entities.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("Usuarioid");
-
                     b.HasOne("ReportsSystemApi.Domain.Entities.Atividade", "atividade")
                         .WithMany()
                         .HasForeignKey("atividadeid");
+
+                    b.HasOne("ReportsSystemApi.Domain.Entities.Usuario", "usuario")
+                        .WithMany()
+                        .HasForeignKey("usuarioid");
                 });
 
             modelBuilder.Entity("ReportsSystemApi.Domain.Entities.Log", b =>
@@ -188,22 +158,11 @@ namespace ReportsSystemAPI.Migrations
                         .HasForeignKey("usuarioid");
                 });
 
-            modelBuilder.Entity("ReportsSystemApi.Domain.Entities.UsuarioPerfil", b =>
+            modelBuilder.Entity("ReportsSystemApi.Domain.Entities.Usuario", b =>
                 {
                     b.HasOne("ReportsSystemApi.Domain.Entities.Perfil", "perfil")
                         .WithMany()
                         .HasForeignKey("perfilid");
-
-                    b.HasOne("ReportsSystemApi.Domain.Entities.Usuario", "usuario")
-                        .WithMany()
-                        .HasForeignKey("usuarioid");
-                });
-
-            modelBuilder.Entity("ReportsSystemApi.Domain.Entities.Vinculo", b =>
-                {
-                    b.HasOne("ReportsSystemApi.Domain.Entities.Usuario", "usuario")
-                        .WithMany()
-                        .HasForeignKey("usuarioid");
                 });
 #pragma warning restore 612, 618
         }

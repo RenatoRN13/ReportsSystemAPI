@@ -43,21 +43,24 @@ namespace ReportsSystemApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> Post(Usuario usuario)
         {
+            Usuario userTemp = new Usuario();
+            userTemp.login = usuario.login;
+            userTemp.nome = usuario.nome;
+            userTemp.senha = usuario.senha;
+            
             try{
-                _context.Usuarios.Add(usuario);
-                //await _context.SaveChangesAsync();
-                if(usuario.perfis.Count > 0){
-                    foreach (Perfil perfil in usuario.perfis){
-                        UsuarioPerfil up = new UsuarioPerfil();
-                        up.usuario = usuario;
-                        up.perfil = perfil;
+                _context.Usuarios.Add(userTemp);
+                await _context.SaveChangesAsync();
 
-                        _context.UsuarioPerfis.Add(up);
-                        await _context.SaveChangesAsync();
-                    }
-                }
-            } catch (Exception e){
+                if(usuario.perfil != null){
+                    userTemp.perfil = usuario.perfil;
+                    usuario.id = userTemp.id;
+                    Put(userTemp.id, usuario);
+                }   
                 
+
+            } catch (Exception e){
+                new Exception(e.Message);
             }
 
             return CreatedAtAction(nameof(GetItem), new Usuario {id = usuario.id}, usuario);

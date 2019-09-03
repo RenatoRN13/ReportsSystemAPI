@@ -11,9 +11,7 @@ namespace ReportsSystemApi.Infra {
         public DbSet<Atividade> Atividades { get; set; }
         public DbSet<Relatorio> Relatorios { get; set; }
         public DbSet<Perfil> Perfis { get; set; }
-        public DbSet<Vinculo> Vinculos { get; set; }
         public DbSet<AtividadeUsuario> AtividadeUsuarios { get; set; }
-        public DbSet<UsuarioPerfil> UsuarioPerfis { get; set; }
         public DbSet<Log> Logs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
